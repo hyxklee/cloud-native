@@ -24,11 +24,11 @@ spring:
         - id: todo-service
           uri: http://demo2:8080
           predicates:
-            - Path=/todos/**
+            - Path=/api/todos/**
         - id: user-service
           uri: http://demo1:8080
           predicates:
-            - Path=/users/**
+            - Path=/api/users/**
 
 
 
