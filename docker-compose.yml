@@ -1,0 +1,94 @@
+services:
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile-local
+    container_name: front
+    ports:
+      - "3000:80" # 호스트의 8080 포트를 컨테이너의 80 포트로 매핑
+    networks:
+      - app_network
+#    profiles:
+#      - front
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile-local
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  demo1:
+    build:
+      context: ./demo1
+      dockerfile: Dockerfile-local
+    container_name: demo1
+    ports:
+      - "8081:8080"
+    networks:
+      - app_network
+    env_file:
+      - 1.env
+#    profiles:
+#      - backend
+
+  demo2:
+    build:
+      context: ./demo2
+      dockerfile: Dockerfile-local
+    container_name: demo2
+    ports:
+      - "8082:8080"
+    networks:
+      - app_network
+    env_file:
+      - 2.env
+#    profiles:
+#      - backend
+
+  mysql1:
+    image: mysql:8
+    container_name: mysql1
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: demo1
+    ports:
+      - "3306:3306"
+    networks:
+      - app_network
+    volumes:
+      - mysql1-data:/var/lib/mysql
+
+  mysql2:
+    image: mysql:8
+    container_name: mysql2
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: demo2
+    ports:
+      - "3307:3306"
+    networks:
+      - app_network
+    volumes:
+      - mysql2-data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mysql1-data:
+  mysql2-data:

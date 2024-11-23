@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Left Section -->
+    <div class="left-section">
+      <h1 class="app-title">To Do List</h1>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <div class="todo-container">
+        <h2 class="todo-header">오늘의 할일:</h2>
+        <ul id="todo-list" class="todo-list"></ul>
+      </div>
+
+      <br>
+      <form id="add-todo-form" class="todo-form">
+        <input type="text" id="new-todo" placeholder="할 일을 적어주세요" required />
+        <button type="submit" id="add-button" class="plus-button">
+          <i class="fas fa-plus"></i>
+        </button>
+      </form>
+      <button id="logout-button" class="logout-button">
+        <i class="fas fa-sign-out-alt"></i> 로그아웃
+      </button>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="js/todo.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
