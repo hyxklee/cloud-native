@@ -59,7 +59,7 @@ public class UserService {
     private void deleteTodo(Long userId) {
         log.info("유저 삭제 요청. todo 삭제");
         restClient.delete()
-                .uri("http://localhost:8082/todos/" + userId)
+                .uri("http://gateway/api/todos/" + userId)
                 .retrieve()
                 .toBodilessEntity();
     }
