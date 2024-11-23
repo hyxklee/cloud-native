@@ -1,3 +1,5 @@
+const API_BASE_URL = '/api';
+
 // Login event listener
 document.getElementById("login-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -6,7 +8,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (event) 
   const password = document.getElementById("password").value;
 
   try {
-    const response = await fetch("http://localhost:8080/users/login", {
+    const response = await fetch(`${API_BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +49,7 @@ document.getElementById("register-form")?.addEventListener("submit", async (even
   }
 
   try {
-    const response = await fetch("http://localhost:8080/users/register", {
+    const response = await fetch(`${API_BASE_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +78,7 @@ document.getElementById("register-form")?.addEventListener("submit", async (even
 // Logout button event listener
 document.getElementById("logout-button").addEventListener("click", async () => {
   try {
-    const response = await fetch("http://localhost:8080/users/logout", {
+    const response = await fetch(`${API_BASE_URL}/users/logout`, {
       method: "POST",
       credentials: "include",
     });

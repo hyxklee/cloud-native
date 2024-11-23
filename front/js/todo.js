@@ -1,3 +1,5 @@
+const API_BASE_URL = '/api';
+
 // 단색 색상 클래스 배열
 const colors = ["color-red", "color-blue", "color-green", "color-yellow", "color-purple", "color-orange"];
 let colorIndex = 0;
@@ -17,7 +19,7 @@ function showToast(message) {
 // Fetch todos on page load
 window.addEventListener("load", async () => {
     try {
-        const response = await fetch("http://localhost:8080/todos", {
+        const response = await fetch(`${API_BASE_URL}/todos`, {
             method: "GET",
             credentials: "include",
         });
@@ -53,7 +55,7 @@ document.getElementById("add-todo-form").addEventListener("submit", async (event
     }
 
     try {
-        const response = await fetch("http://localhost:8080/todos", {
+        const response = await fetch(`${API_BASE_URL}/todos`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -137,7 +139,7 @@ function addTodoToDOM(todo) {
 // Toggle todo check
 async function toggleTodoCheck(id, isChecked) {
     try {
-        const response = await fetch(`http://localhost:8080/todos/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -159,7 +161,7 @@ async function toggleTodoCheck(id, isChecked) {
 // Delete todo
 async function deleteTodo(id, todoItem) {
     try {
-        const response = await fetch(`http://localhost:8080/todos/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
             method: "DELETE",
             credentials: "include",
         });
