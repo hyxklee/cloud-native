@@ -54,5 +54,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd
-            docker-compose --env-file compose.env -f docker-compose.prod.yml pull
-            docker-compose --env-file compose.env -f docker-compose.prod.yml up -d
+            sudo docker-compose --env-file compose.env -f docker-compose.prod.yml pull
+            sudo docker-compose --env-file compose.env -f docker-compose.prod.yml up -d
