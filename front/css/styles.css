@@ -192,6 +192,22 @@ body {
   background-color: #424242;
 }
 
+.user-delete {
+  margin-top: 5%;
+  width: 100%;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  background-color: #e53935
+}
+
 /* Toast Styling */
 .toast {
   position: fixed;

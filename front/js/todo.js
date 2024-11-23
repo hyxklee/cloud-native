@@ -2,7 +2,7 @@
 const colors = ["color-red", "color-blue", "color-green", "color-yellow", "color-purple", "color-orange"];
 let colorIndex = 0;
 
-// Show toast message
+// 토스트 메시지 전용 함수
 function showToast(message) {
     const toast = document.getElementById("toast");
     toast.textContent = message;
@@ -14,7 +14,7 @@ function showToast(message) {
     }, 1500);
 }
 
-// Fetch todos on page load
+// 유저별 todo 데이터 불러오기
 window.addEventListener("load", async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/todos`, {
@@ -42,13 +42,13 @@ window.addEventListener("load", async () => {
     }
 });
 
-// Add new todo
+// 새로운 todo 추가
 document.getElementById("add-todo-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const newTodoText = document.getElementById("new-todo").value.trim(); // 입력 값 확인
     if (!newTodoText) {
-        showToast("Please enter a task!");
+        showToast("할일을 입력해주세요!");
         return;
     }
 
@@ -134,7 +134,7 @@ function addTodoToDOM(todo) {
 }
 
 
-// Toggle todo check
+// todo 상태 수정
 async function toggleTodoCheck(id, isChecked) {
     try {
         const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
@@ -156,7 +156,7 @@ async function toggleTodoCheck(id, isChecked) {
     }
 }
 
-// Delete todo
+// todo 개별 삭제
 async function deleteTodo(id, todoItem) {
     try {
         const response = await fetch(`${API_BASE_URL}/todos/${id}`, {

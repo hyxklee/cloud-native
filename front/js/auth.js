@@ -1,6 +1,6 @@
+// 리버스 프록시 적용으로 인한 API 엔드포인트 전역 설정
 const API_BASE_URL = '/api';
 
-// Login event listener
 document.getElementById("login-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -34,7 +34,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (event) 
   }
 });
 
-// Register event listener
+// 회원가입
 document.getElementById("register-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -61,7 +61,7 @@ document.getElementById("register-form")?.addEventListener("submit", async (even
 
     if (responseData.code === 200) {
       // 회원가입 성공
-      alert("Registration successful! Redirecting to login page...");
+      alert("회원가입 성공!");
       window.location.href = "/";
     } else {
       // 회원가입 실패 메시지 표시
@@ -75,7 +75,7 @@ document.getElementById("register-form")?.addEventListener("submit", async (even
   }
 });
 
-// Logout button event listener
+// 로그아웃
 document.getElementById("logout-button").addEventListener("click", async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/users/logout`, {
@@ -93,5 +93,26 @@ document.getElementById("logout-button").addEventListener("click", async () => {
   } catch (error) {
     console.error("Error during logout:", error);
     alert("An error occurred during logout.");
+  }
+});
+
+// 회원탈퇴
+document.getElementById("user-delete").addEventListener("click", async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      alert("회원과 해당 회원의 데이터가 삭제되었습니다.");
+      window.location.href = "/";
+    } else {
+      console.error("Failed to delete:", await response.json());
+      alert("Failed to delete. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error during delete user:", error);
+    alert("An error occurred during delete.");
   }
 });
