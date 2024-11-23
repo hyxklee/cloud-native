@@ -1,0 +1,58 @@
+name: cicd
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 push 시 실행
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [demo1, demo2, front, gateway] # 각 서비스를 매트릭스로 처리
+
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Docker Hub 로그인
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub 사용자 이름
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub 비밀번호
+
+      # 3. Docker 이미지 빌드 및 푸시
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./${{ matrix.service }} # 서비스 디렉토리를 빌드 컨텍스트로 사용
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest # Docker Hub에 푸시할 이미지 태그
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name == 'push'
+
+    steps:
+      # 1. SSH로 EC2 서버에 접속하여 배포
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd
+            docker-compose --env-file compose.env -f docker-compose.prod.yml pull
+            docker-compose --env-file compose.env -f docker-compose.prod.yml up -d
