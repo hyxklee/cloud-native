@@ -69,7 +69,7 @@ public class UserService {
                 .orElseThrow(()-> new RuntimeException("사용자가 존재하지 않습니다."));
     }
 
-    private User find(String emfail) {
+    private User find(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(()-> new RuntimeException("사용자가 존재하지 않습니다."));
     }
