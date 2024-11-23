@@ -98,12 +98,14 @@ document.getElementById("logout-button").addEventListener("click", async () => {
 
 // 회원탈퇴
 document.getElementById("user-delete").addEventListener("click", async () => {
+  console.log("회원탈퇴 요청");
   try {
     const response = await fetch(`${API_BASE_URL}/users`, {
       method: "DELETE",
       credentials: "include",
     });
-
+    const responseData = await response.json();
+    console.log("응답", responseData);
     if (response.ok) {
       alert("회원과 해당 회원의 데이터가 삭제되었습니다.");
       window.location.href = "/";
