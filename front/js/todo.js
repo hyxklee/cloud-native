@@ -1,5 +1,3 @@
-const API_BASE_URL = '/api';
-
 // 단색 색상 클래스 배열
 const colors = ["color-red", "color-blue", "color-green", "color-yellow", "color-purple", "color-orange"];
 let colorIndex = 0;
