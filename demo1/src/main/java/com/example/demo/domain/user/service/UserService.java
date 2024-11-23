@@ -59,7 +59,7 @@ public class UserService {
     private void deleteTodo(Long userId) {
         log.info("유저 삭제 요청. todo 삭제");
         restClient.delete()
-                .uri("http://gateway/todos/" + userId)
+                .uri("http://13.209.81.42/api/todos/" + userId)
                 .retrieve()
                 .toBodilessEntity();
     }
@@ -69,7 +69,7 @@ public class UserService {
                 .orElseThrow(()-> new RuntimeException("사용자가 존재하지 않습니다."));
     }
 
-    private User find(String email) {
+    private User find(String emfail) {
         return userRepository.findByEmail(email)
                 .orElseThrow(()-> new RuntimeException("사용자가 존재하지 않습니다."));
     }
