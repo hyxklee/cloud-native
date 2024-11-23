@@ -3,10 +3,10 @@ name: cicd
 on:
   push:
     branches:
-      - main  # main 브랜치에 push 시 실행
+      - master  # main 브랜치에 push 시 실행
   pull_request:
     branches:
-      - main
+      - master
     types:
       - opened
       - synchronize
