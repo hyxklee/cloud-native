@@ -53,16 +53,16 @@ public class UserService {
     public void delete(HttpSession session) {
         Long userId = authenticate(session);
         userRepository.deleteById(userId);
-        deleteTodo(userId);
     }
 
-    private void deleteTodo(Long userId) {
-        log.info("유저 삭제 요청. todo 삭제");
-        restClient.delete()
-                .uri("http://13.209.81.42/api/todos/" + userId)
-                .retrieve()
-                .toBodilessEntity();
-    }
+//    private boolean deleteTodo(Long userId) {
+//        log.info("유저 삭제 요청. todo 삭제");
+//        restClient.delete()
+//                .uri("http://13.209.81.42/api/todos/" + userId)
+//                .retrieve()
+//                .toBodilessEntity();
+//
+//    }
 
     private User find(Long userId) {
         return userRepository.findById(userId)
