@@ -77,6 +77,8 @@ document.getElementById("register-form")?.addEventListener("submit", async (even
 
 // 로그아웃
 document.getElementById("logout-button").addEventListener("click", async () => {
+  if(!confirm("로그아웃 하시겠습니까?")) return;
+
   try {
     const response = await fetch(`${API_BASE_URL}/users/logout`, {
       method: "POST",
@@ -84,8 +86,10 @@ document.getElementById("logout-button").addEventListener("click", async () => {
     });
 
     if (response.ok) {
-      alert("로그아웃 되었습니다");
-      window.location.href = "/"; // 로그아웃 후 로그인 페이지로 이동
+      showToast("로그아웃 되었습니다");
+      setTimeout(() => {
+        window.location.href = "/"; // 로그아웃 후 로그인 페이지로 이동
+      }, 1000);
     } else {
       console.error("Failed to logout:", await response.json());
       alert("Failed to logout. Please try again.");
@@ -98,6 +102,7 @@ document.getElementById("logout-button").addEventListener("click", async () => {
 
 // 회원탈퇴
 document.getElementById("user-delete").addEventListener("click", async () => {
+  if(!confirm("탈퇴 하시겠습니까? 사용자의 정보가 모두 삭제됩니다.")) return;
   console.log("회원탈퇴 요청");
   try {
     const response = await fetch(`${API_BASE_URL}/users`, {
@@ -107,8 +112,10 @@ document.getElementById("user-delete").addEventListener("click", async () => {
     const responseData = await response.json();
     console.log("응답", responseData);
     if (response.ok) {
-      alert("회원과 해당 회원의 데이터가 삭제되었습니다.");
-      window.location.href = "/";
+      showToast("회원과 해당 회원의 데이터가 삭제되었습니다.");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     } else {
       console.error("Failed to delete:", await response.json());
       alert("Failed to delete. Please try again.");
